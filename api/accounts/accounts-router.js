@@ -24,13 +24,7 @@ router.post(
   (req, res, next) => {
     // KODLAR BURAYA
     AccountModels.create(req.body)
-      .then((response) => {
-        AccountModels.getById(response)
-          .then((response2) => res.status(201).json(response2))
-          .catch((err) =>
-            next({ code: 500, message: "There is a database problem" })
-          );
-      })
+      .then((response) => res.status(201).json(response))
       .catch((err) =>
         next({ code: 500, message: "There is a database problem" })
       );

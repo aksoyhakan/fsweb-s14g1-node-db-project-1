@@ -2,7 +2,12 @@ const db = require("../../data/db-config.js");
 
 const getAll = (query) => {
   // KODLAR BURAYA
-  return db("accounts").orderBy(query.sortby, query.sortdir).limit(query.limit);
+  const { sortby, sortdir, limit } = query;
+  if (sortby && sortdir && limit) {
+    return db("accounts")
+      .orderBy(query.sortby, query.sortdir)
+      .limit(query.limit);
+  } else return db("accounts");
 };
 
 const getById = (id) => {
@@ -15,10 +20,12 @@ const getByName = (name) => {
 
 const create = (account) => {
   // KODLAR BURAYA
-  return db("accounts").insert({
-    name: account.name.trim(),
-    budget: account.budget,
-  });
+  return db("accounts")
+    .insert({
+      name: account.name.trim(),
+      budget: account.budget,
+    })
+    .then((res) => getById(res));
 };
 
 const updateById = (id, account) => {
