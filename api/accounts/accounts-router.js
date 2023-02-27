@@ -6,7 +6,10 @@ router.use(md.logger);
 
 router.get("/", (req, res, next) => {
   // KODLAR BURAYA
-  AccountModels.getAll().then((response) => res.status(200).json(response));
+  console.log(req.query);
+  AccountModels.getAll(req.query).then((response) =>
+    res.status(200).json(response)
+  );
 });
 
 router.get("/:id", md.checkAccountId, (req, res, next) => {

@@ -1,8 +1,8 @@
 const db = require("../../data/db-config.js");
 
-const getAll = () => {
+const getAll = (query) => {
   // KODLAR BURAYA
-  return db("accounts");
+  return db("accounts").orderBy(query.sortby, query.sortdir).limit(query.limit);
 };
 
 const getById = (id) => {
