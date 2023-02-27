@@ -1,22 +1,37 @@
+const db = require("../../data/db-config.js");
+
 const getAll = () => {
   // KODLAR BURAYA
-}
+  return db("accounts");
+};
 
-const getById = id => {
-  // KODLAR BURAYA
-}
+const getById = (id) => {
+  return db("accounts").where({ id }).first();
+};
 
-const create = account => {
+const getByName = (name) => {
+  return db("accounts").where({ name }).first();
+};
+
+const create = (account) => {
   // KODLAR BURAYA
-}
+  return db("accounts").insert({
+    name: account.name.trim(),
+    budget: account.budget,
+  });
+};
 
 const updateById = (id, account) => {
   // KODLAR BURAYA
-}
+  return db("accounts")
+    .where({ id })
+    .update({ name: account.name, budget: account.budget });
+};
 
-const deleteById = id => {
+const deleteById = (id) => {
   // KODLAR BURAYA
-}
+  return db("accounts").where({ id }).del();
+};
 
 module.exports = {
   getAll,
@@ -24,4 +39,5 @@ module.exports = {
   create,
   updateById,
   deleteById,
-}
+  getByName,
+};
